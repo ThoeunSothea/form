@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .section1,
+        .section2,
+        .section3,
+        .section4,
+        .section5,
+        .section6 {
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card-body">
+            <div class="image">
+                <img src="http://westernuniversity.edu.kh/themes/webfront/images/Logo_with_title_right.png" alt="">
+            </div>
+            <form action="" id="register_Form">
+                <h2>Register</h2>
+                <div class="section1">
+                    <input type="text" id="KhmerName" placeholder="Khmer Name" required>
+                    <input type="text" id="EnglishName" placeholder="English Name" required>
+                </div>
+                <div class="section2">
+                    <input type="date" id="DateOfBirth" placeholder="Date of Birth" required>
+                    <div class="gender">
+                        <label>Gender</label>
+                        <input type="radio" name="Gender" id="Male" value="Male" required>
+                        <label for="Male">Male</label>
+                        <input type="radio" name="Gender" id="Female" value="Female" required>
+                        <label for="Female">Female</label>
+                    </div>
+                    <input type="text" id="Nationality" placeholder="Nationality" required>
+                </div>
+                <div class="section3">
+                    <input type="text" id="PlaceofBirth" placeholder="Place of Birth" required>
+                    <input type="text" id="Address" placeholder="Address" required>
+                </div>
+                <div class="section1">
+                    <input type="tel" id="PhoneNumber" placeholder="Phone Number" required>
+                    <input type="email" id="Email" placeholder="Email" required>
+                </div>
+                <div class="section1">
+                    <input type="text" id="FatherName" placeholder="Father's Name" required>
+                    <input type="tel" id="FatherPhoneNumber" placeholder="Father's Phone Number" required>
+                </div>
+                <div class="section1">
+                    <input type="text" id="MotherName" placeholder="Mother's Name" required>
+                    <input type="tel" id="MotherPhoneNumber" placeholder="Mother's Phone Number" required>
+                </div>
+                <div class="section4">
+                    <div class="Applyfor">
+                        <h3>Apply for</h3>
+                        <div class="Apply">
+                            <input type="checkbox" id="Associate" value="Associate Degree">
+                            <label for="Associate">Associate Degree</label>
+                            <input type="checkbox" id="Bachelor" value="Bachelor's Degree">
+                            <label for="Bachelor">Bachelor's Degree</label>
+                            <input type="checkbox" id="Master" value="Master's Degree">
+                            <label for="Master">Master's Degree</label>
+                            <input type="checkbox" id="Doctoral" value="Doctoral Degree">
+                            <label for="Doctoral">Doctoral Degree</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="section1">
+                    <input type="text" id="Year" placeholder="Year" required>
+                    <input type="text" id="Batch" placeholder="Batch" required>
+                </div>
+                <div class="section5">
+                    <input type="text" id="Faculty" placeholder="Faculty" required>
+                    <input type="text" id="Major" placeholder="Major" required>
+                    <input type="text" id="Session" placeholder="Session" required>
+                </div>
+                <div class="section6">
+                    <div class="School">
+                        <h3>School Fees</h3>
+                        <div class="School">
+                            <input type="checkbox" id="Associate_Degree" value="Associate Degree">
+                            <label for="Associate_Degree">Associate Degree</label>
+                            <input type="checkbox" id="Bachelor_Degree" value="Bachelor's Degree">
+                            <label for="Bachelor_Degree">Bachelor's Degree</label>
+                        </div>
+                        <div class="note">
+                            <h3>សំគាល់</h3>
+                            <h5>ទឹកប្រាក់ដែលបានបង់ថ្លៃសិក្សារួចហើយ មិនអាចដកវិញបានឡើយ។</h5>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="window.location.href='table.html'">View Table</button>
+                <button type="reset" class="Restart_Form">Restart Form</button>
+                <button type="submit" class="Register_Now">Register Now</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function getCurrentTimestamp() {
+            const now = new Date();
+            return now.toLocaleString();
+        }
+
+        function validateForm() {
+            const requiredFields = [
+                'KhmerName', 'EnglishName', 'DateOfBirth', 'Nationality', 'PlaceofBirth', 'Address',
+                'PhoneNumber', 'Email', 'FatherName', 'FatherPhoneNumber', 'MotherName', 'MotherPhoneNumber',
+                'Year', 'Batch', 'Faculty', 'Major', 'Session'
+            ];
+
+            for (const field of requiredFields) {
+                const value = document.getElementById(field).value.trim();
+                if (!value) {
+                    alert(`សូមបំពេញព័ត៌មាននៅក្នុង ${field}`);
+                    return false;
+                }
+            }
+
+            const genderSelected = document.querySelector('input[name="Gender"]:checked');
+            if (!genderSelected) {
+                alert("សូមជ្រើសរើសភេទ។");
+                return false;
+            }
+
+            return true;
+        }
+
+        document.querySelector('.Register_Now').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!validateForm()) {
+                return;
+            }
+
+            const formData = {
+                KhmerName: document.getElementById('KhmerName').value,
+                EnglishName: document.getElementById('EnglishName').value,
+                DateOfBirth: document.getElementById('DateOfBirth').value,
+                Gender: document.querySelector('input[name="Gender"]:checked')?.value || '',
+                Nationality: document.getElementById('Nationality').value,
+                PlaceOfBirth: document.getElementById('PlaceofBirth').value,
+                Address: document.getElementById('Address').value,
+                PhoneNumber: document.getElementById('PhoneNumber').value,
+                Email: document.getElementById('Email').value,
+                FatherName: document.getElementById('FatherName').value,
+                FatherPhone: document.getElementById('FatherPhoneNumber').value,
+                MotherName: document.getElementById('MotherName').value,
+                MotherPhone: document.getElementById('MotherPhoneNumber').value,
+                ApplyFor: Array.from(document.querySelectorAll('.Apply input[type="checkbox"]:checked'))
+                    .map(e => e.value)
+                    .join(', '),
+                Year: document.getElementById('Year').value,
+                Batch: document.getElementById('Batch').value,
+                Faculty: document.getElementById('Faculty').value,
+                Major: document.getElementById('Major').value,
+                Session: document.getElementById('Session').value,
+                SchoolFees: Array.from(document.querySelectorAll('.School input[type="checkbox"]:checked'))
+                    .map(e => e.value)
+                    .join(', '),
+                Timestamp: getCurrentTimestamp(),
+            };
+
+            // Save data to localStorage
+            let savedData = JSON.parse(localStorage.getItem('formData')) || [];
+            savedData.push(formData);
+            localStorage.setItem('formData', JSON.stringify(savedData));
+            console.log('Data saved to localStorage:', savedData);
+
+            alert("✅ ទិន្នន័យត្រូវបានបញ្ចូល!");
+            window.location.href = 'table.html';
+        });
+    </script>
+</body>
+
+</html>

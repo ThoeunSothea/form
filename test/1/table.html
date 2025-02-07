@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>បង្ហាញទិន្នន័យ</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ទិន្នន័យដែលបានរក្សាទុក</h1>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Khmer Name</th>
+                <th>English Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Nationality</th>
+                <th>Place of Birth</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Father's Name</th>
+                <th>Father's Phone</th>
+                <th>Mother's Name</th>
+                <th>Mother's Phone</th>
+                <th>Apply For</th>
+                <th>Year</th>
+                <th>Batch</th>
+                <th>Faculty</th>
+                <th>Major</th>
+                <th>Session</th>
+                <th>School Fees</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+
+        const savedData = JSON.parse(localStorage.getItem('formData')) || [];
+
+        const tableBody = document.querySelector('#dataTable tbody');
+        if (savedData.length > 0) {
+            savedData.forEach(data => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${data.KhmerName}</td>
+                    <td>${data.EnglishName}</td>
+                    <td>${data.DateOfBirth}</td>
+                    <td>${data.Gender}</td>
+                    <td>${data.Nationality}</td>
+                    <td>${data.PlaceOfBirth}</td>
+                    <td>${data.Address}</td>
+                    <td>${data.PhoneNumber}</td>
+                    <td>${data.Email}</td>
+                    <td>${data.FatherName}</td>
+                    <td>${data.FatherPhone}</td>
+                    <td>${data.MotherName}</td>
+                    <td>${data.MotherPhone}</td>
+                    <td>${data.ApplyFor}</td>
+                    <td>${data.Year}</td>
+                    <td>${data.Batch}</td>
+                    <td>${data.Faculty}</td>
+                    <td>${data.Major}</td>
+                    <td>${data.Session}</td>
+                    <td>${data.SchoolFees}</td>
+                    <td>${data.Timestamp}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            tableBody.innerHTML = '<tr><td colspan="21">មិនមានទិន្នន័យដែលបានរក្សាទុកទេ។</td></tr>';
+        }
+    </script>
+</body>
+
+</html>

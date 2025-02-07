@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .update-btn {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #ff9800;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Registered Data</h1>
+
+    <form id="register_Form">
+        <input type="text" id="KhmerName" placeholder="Khmer Name" required />
+        <input type="text" id="EnglishName" placeholder="English Name" required />
+        <input type="date" id="DateOfBirth" required />
+        <input type="text" id="Nationality" placeholder="Nationality" />
+        <input type="text" id="PlaceofBirth" placeholder="Place of Birth" />
+        <input type="text" id="Address" placeholder="Address" />
+        <input type="text" id="PhoneNumber" placeholder="Phone Number" />
+        <input type="email" id="Email" placeholder="Email" />
+        <input type="text" id="Year" placeholder="Year" />
+        <input type="text" id="Faculty" placeholder="Faculty" />
+        <input type="text" id="Major" placeholder="Major" />
+
+        <div class="gender">
+            <label><input type="radio" name="Gender" id="Male" value="Male" /> Male</label>
+            <label><input type="radio" name="Gender" id="Female" value="Female" /> Female</label>
+        </div>
+
+        <button type="button" class="add-btn">Add Data</button>
+        <button type="button" class="update-btn" disabled>Update Now</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Khmer Name</th>
+                <th>English Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Nationality</th>
+                <th>Place of Birth</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Year</th>
+                <th>Faculty</th>
+                <th>Major</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        function displayData() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = "";
+            let dataList = JSON.parse(localStorage.getItem('formDataList')) || [];
+
+            dataList.forEach((formData, index) => {
+                const newRow = document.createElement('tr');
+
+                Object.keys(formData).forEach(key => {
+                    const newCell = document.createElement('td');
+                    newCell.textContent = formData[key];
+                    newRow.appendChild(newCell);
+                });
+
+                const actionsCell = document.createElement('td');
+                actionsCell.innerHTML = `
+                    <button class="edit-btn" data-index="${index}">Edit</button>
+                    <button class="delete-btn" data-index="${index}">Delete</button>`;
+                newRow.appendChild(actionsCell);
+
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        document.querySelector('.add-btn').addEventListener('click', function () {
+            const formData = {
+                Khmer_Name: document.getElementById('KhmerName').value,
+                English_Name: document.getElementById('EnglishName').value,
+                Date_of_Birth: document.getElementById('DateOfBirth').value,
+                Gender: document.querySelector('input[name="Gender"]:checked') ? document.querySelector('input[name="Gender"]:checked').value : "",
+                Nationality: document.getElementById('Nationality').value,
+                Place_of_Birth: document.getElementById('PlaceofBirth').value,
+                Address: document.getElementById('Address').value,
+                Phone_Number: document.getElementById('PhoneNumber').value,
+                Email: document.getElementById('Email').value,
+                Year: document.getElementById('Year').value,
+                Faculty: document.getElementById('Faculty').value,
+                Major: document.getElementById('Major').value,
+            };
+
+            let dataList = JSON.parse(localStorage.getItem('formDataList')) || [];
+            dataList.push(formData);
+            localStorage.setItem('formDataList', JSON.stringify(dataList));
+
+            displayData();
+            alert("✅ Data added successfully!");
+        });
+
+        document.querySelector('#tableBody').addEventListener('click', function (event) {
+            let dataList = JSON.parse(localStorage.getItem('formDataList')) || [];
+            const index = event.target.dataset.index;
+
+            if (event.target.classList.contains('delete-btn')) {
+                dataList.splice(index, 1);
+                localStorage.setItem('formDataList', JSON.stringify(dataList));
+                displayData();
+                alert("🗑 Data deleted!");
+            }
+
+            if (event.target.classList.contains('edit-btn')) {
+                const formData = dataList[index];
+
+                document.getElementById('KhmerName').value = formData.Khmer_Name;
+                document.getElementById('EnglishName').value = formData.English_Name;
+                document.getElementById('DateOfBirth').value = formData.Date_of_Birth;
+                document.getElementById('Nationality').value = formData.Nationality;
+                document.getElementById('PlaceofBirth').value = formData.Place_of_Birth;
+                document.getElementById('Address').value = formData.Address;
+                document.getElementById('PhoneNumber').value = formData.Phone_Number;
+                document.getElementById('Email').value = formData.Email;
+                document.getElementById('Year').value = formData.Year;
+                document.getElementById('Faculty').value = formData.Faculty;
+                document.getElementById('Major').value = formData.Major;
+
+                if (formData.Gender === "Male") {
+                    document.getElementById('Male').checked = true;
+                } else if (formData.Gender === "Female") {
+                    document.getElementById('Female').checked = true;
+                }
+
+                document.querySelector('.update-btn').dataset.index = index;
+                document.querySelector('.update-btn').disabled = false;
+            }
+        });
+
+        document.querySelector('.update-btn').addEventListener('click', function () {
+            let dataList = JSON.parse(localStorage.getItem('formDataList')) || [];
+            const index = this.dataset.index;
+
+            dataList[index] = {
+                Khmer_Name: document.getElementById('KhmerName').value,
+                English_Name: document.getElementById('EnglishName').value,
+                Date_of_Birth: document.getElementById('DateOfBirth').value,
+                Gender: document.querySelector('input[name="Gender"]:checked').value,
+                Faculty: document.getElementById('Faculty').value,
+                Major: document.getElementById('Major').value,
+            };
+
+            localStorage.setItem('formDataList', JSON.stringify(dataList));
+            displayData();
+            alert("✅ Data updated!");
+        });
+
+        displayData();
+    </script>
+</body>
+
+</html>
