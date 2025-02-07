@@ -4,125 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Now</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            background-color: rgb(36, 36, 126);
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .card-body {
-            background-color: rgb(254, 255, 254);
-            width: 100%;
-            max-width: 1010px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgb(0, 0, 0);
-            border-radius: 8px;
-        }
-
-        .image img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        form {
-            text-align: center;
-        }
-
-        .section1, .section2, .section3, .section4, .section5, .section6 {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
-        .section1 input, .section2 input, .section3 input, .section5 input {
-            flex: 1 1 45%;
-            padding: 10px;
-        }
-
-        .section2 .gender {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section4 .Applyfor, .section6 .School {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .section4 .Apply, .section6 .School {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .section4 input[type="checkbox"], .section6 input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
-        button {
-            margin: 10px;
-            padding: 15px;
-            border: none;
-            border-radius: 14px;
-            background-color: rgb(35, 12, 97);
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s ease-in-out;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-        }
-
-        table {
-            width: 100%;
-            margin: 20px 0;
-            border-collapse: collapse;
-            background-color: black;
-            color: white;
-            font-size: 16px;
-            border: 1px solid white;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid white;
-            text-align: left;
-        }
-
-        th {
-            background-color: #222;
-        }
-
-        @media (max-width: 767px) {
-            .section1, .section2, .section3, .section4, .section5, .section6 {
-                flex-direction: column;
-            }
-
-            .section1 input, .section2 input, .section3 input, .section5 input {
-                width: 100%;
-            }
-
-            table {
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="container">
@@ -140,9 +22,9 @@
                     <input type="date" id="DateOfBirth" placeholder="Date of Birth" required>
                     <div class="gender">
                         <label>Gender</label>
-                        <input type="radio" name="Gender" id="Male" value="Male" required>
+                        <input type="checkbox" name="Gender" id="Male" value="Male" required>
                         <label for="Male">Male</label>
-                        <input type="radio" name="Gender" id="Female" value="Female" required>
+                        <input type="checkbox" name="Gender" id="Female" value="Female" required>
                         <label for="Female">Female</label>
                     </div>
                     <input type="text" id="Nationality" placeholder="Nationality" required>
